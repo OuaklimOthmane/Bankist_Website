@@ -39,7 +39,7 @@ document.addEventListener("keydown", function (e) {
 btnScrollTo.addEventListener("click", function (e) {
   const s1coords = section1.getBoundingClientRect();
 
-  //* first method :
+  //* first method (Old):
   /*   
   window.scrollTo({
     left: s1coords.left + window.pageXOffset,
@@ -48,6 +48,15 @@ btnScrollTo.addEventListener("click", function (e) {
   }); 
   */
 
-  //* first method :
+  //* first method (Modern):
   section1.scrollIntoView({ behavior: "smooth" });
+});
+
+//! Page navigation :
+document.querySelectorAll(".nav__link").forEach((element) => {
+  element.addEventListener("click", function (e) {
+    e.preventDefault(); // prevent scrolling
+    const id = this.getAttribute("href"); //? we use "this.getAttribute()" instead of the "this.href" because in this case we need just the relative path.
+    document.querySelector(id).scrollIntoView({ behavior: "smooth" });
+  });
 });
