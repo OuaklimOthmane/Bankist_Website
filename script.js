@@ -101,7 +101,7 @@ tabsContainer.addEventListener("click", function (e) {
 });
 
 //!Menu fade animation :
-nav.addEventListener("mouseover", function (e) {
+const handleHover = function (e, opacity) {
   if (e.target.classList.contains("nav__link")) {
     const link = e.target;
     const siblings = link.closest(".nav").querySelectorAll(".nav__link");
@@ -112,17 +112,13 @@ nav.addEventListener("mouseover", function (e) {
     });
     logo.style.opacity = 0.5;
   }
+};
+
+//? We can't passing argument to an event handler like : nav.addEventListener("mouseover",handleHover(e, 0.5) so we use this expression as below :
+nav.addEventListener("mouseover", function (e) {
+  handleHover(e, 0.5);
 });
 
 nav.addEventListener("mouseout", function (e) {
-  if (e.target.classList.contains("nav__link")) {
-    const link = e.target;
-    const siblings = link.closest(".nav").querySelectorAll(".nav__link");
-    const logo = link.closest(".nav").querySelector("img");
-
-    siblings.forEach((sibling) => {
-      if (sibling !== link) sibling.style.opacity = 1;
-    });
-    logo.style.opacity = 1;
-  }
+  handleHover(e, 1);
 });
