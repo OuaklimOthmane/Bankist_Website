@@ -101,20 +101,22 @@ tabsContainer.addEventListener("click", function (e) {
 });
 
 //!Menu fade animation :
-const handleHover = function (e, opacity) {
+const handleHover = function (e) {
   if (e.target.classList.contains("nav__link")) {
     const link = e.target;
     const siblings = link.closest(".nav").querySelectorAll(".nav__link");
     const logo = link.closest(".nav").querySelector("img");
 
     siblings.forEach((sibling) => {
-      if (sibling !== link) sibling.style.opacity = 0.5;
+      if (sibling !== link) sibling.style.opacity = this;
     });
-    logo.style.opacity = 0.5;
+    logo.style.opacity = this;
   }
 };
 
 //? We can't passing argument to an event handler like : nav.addEventListener("mouseover",handleHover(e, 0.5) so we use this expression as below :
+//* version 1 :
+/* 
 nav.addEventListener("mouseover", function (e) {
   handleHover(e, 0.5);
 });
@@ -122,3 +124,10 @@ nav.addEventListener("mouseover", function (e) {
 nav.addEventListener("mouseout", function (e) {
   handleHover(e, 1);
 });
+*/
+
+//* version 2 :
+//? Using bind method that creates a copy of the function that it's called on, and will set the "this" keyword in this function call to whatever value that we pass into bind.
+nav.addEventListener("mouseover", handleHover.bind(0.5));
+
+nav.addEventListener("mouseout", handleHover.bind(1));
