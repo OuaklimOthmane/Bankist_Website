@@ -131,3 +131,12 @@ nav.addEventListener("mouseout", function (e) {
 nav.addEventListener("mouseover", handleHover.bind(0.5));
 
 nav.addEventListener("mouseout", handleHover.bind(1));
+
+//! Sticky navigation using "The scroll" :
+const initialCoords = section1.getBoundingClientRect();
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > initialCoords.top) nav.classList.add("sticky");
+  //? window.scrollY returns the number of pixels that the document is currently scrolled vertically.
+  else nav.classList.remove("sticky");
+});
