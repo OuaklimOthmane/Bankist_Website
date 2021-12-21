@@ -1,5 +1,6 @@
 "use strict";
 
+//! Elements :
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
 const btnCloseModal = document.querySelector(".btn--close-modal");
@@ -12,7 +13,6 @@ const tabsContainer = document.querySelector(".operations__tab-container");
 const tabsContent = document.querySelectorAll(".operations__content");
 
 //! Modal window :
-
 const openModal = function (e) {
   e.preventDefault(); // prevent the page from scrolling to the top when clicked to the button but actually is an "<a>" tag with the "#" wich allows to jump to the top of the page.
   modal.classList.remove("hidden");
@@ -75,4 +75,27 @@ document.querySelector(".nav__links").addEventListener("click", function (e) {
     const id = e.target.getAttribute("href");
     document.querySelector(id).scrollIntoView({ behavior: "smooth" });
   }
+});
+
+//! Tabbed component using Event Delegation :
+tabsContainer.addEventListener("click", function (e) {
+  const clicked = e.target.closest(".operations__tab"); // We use "e.target.closest()" instead of "e.target" to determine when the event was originated 'cause in this case we have a span element inside the button wich have some issus when clicking in the span ,qo we still need the button,So no matter if we click on te button itself or the span we actually need the button element itsel because from this last we will need to read the data_tab attribute 'cause this one contains the number of the tab that should become visible,so besically we need a way of finding the button element whenever we click on the span element ,therefore we want a way of going upwards,but we want to specify that we want to select the an operation tab and so we can use the "closest" method for exactly that,and it really helpfull for delegation event to get dynamically the element that we interested in.
+
+  //* Guard clause :
+  if (!clicked) return; // In case when there is no matching parent element to be found ,so when we click in the tabs conatainer then there is gonna be no parent with the class of ".operations__tab" and so therefore we get a "null" , so we will fix it besically by ignoring any clicks that happend on the area where there no buttons, so with this expression when there is nothing clicked then we want immediately finish this function.
+
+  //* Remove active classes :
+  tabs.forEach((tab) => tab.classList.remove("operations__tab--active"));
+
+  tabsContent.forEach((content) =>
+    content.classList.remove("operations__content--active")
+  );
+
+  //* Activate tab :
+  clicked.classList.add("operations__tab--active");
+
+  //* Activate content area :
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add("operations__content--active");
 });
