@@ -70,7 +70,7 @@ document.querySelector(".nav__links").addEventListener("click", function (e) {
   e.preventDefault();
 
   //* Matching strategy :
-  if (e.target.classList.contains(".nav__link")) {
+  if (e.target.classList.contains("nav__link")) {
     // Determine what element originated the event(the target) and set a condition 'cause we actually only want to work with the clicks that happend on one of the links
     const id = e.target.getAttribute("href");
     document.querySelector(id).scrollIntoView({ behavior: "smooth" });
@@ -116,7 +116,7 @@ const handleHover = function (e) {
 
 //? We can't passing argument to an event handler like : nav.addEventListener("mouseover",handleHover(e, 0.5) so we use this expression as below :
 //* version 1 :
-/* 
+/*
 nav.addEventListener("mouseover", function (e) {
   handleHover(e, 0.5);
 });
@@ -127,7 +127,7 @@ nav.addEventListener("mouseout", function (e) {
 */
 
 //* version 2 :
-//? Using bind method that creates a copy of the function that it's called on, and will set the "this" keyword in this function call to whatever value that we pass into bind.
+//? Using "bind()" method that creates a copy of the function that it's called on, and will set the "this" keyword in this function call to whatever value that we pass into bind.
 nav.addEventListener("mouseover", handleHover.bind(0.5));
 
 nav.addEventListener("mouseout", handleHover.bind(1));
