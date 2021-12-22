@@ -162,3 +162,35 @@ const headerObserver = new IntersectionObserver(
   observerScrollOptions
 );
 headerObserver.observe(header);
+
+//! Revealling sections on scroll using "IntersectionObserver API" :
+
+const sections = document.querySelectorAll(".section");
+
+const observerRevealOptions = {
+  root: null,
+  threshold: 0.15, // the intersection comes after 15% of the section.
+};
+
+const revealSection = function (entries, observer) {
+  const [entry] = entries;
+
+  //* Guard clause :
+  if (!entry.isIntersecting) return;
+
+  entry.target.classList.remove("section--hidden"); // In this case we want just a specified section to reveal not them all that's why we point to te section by the "entry.target" to know wich section is intersected was observed.
+
+  //* Prevent observing sections :
+  // because when we scrolling the observer keeps observing the sections to get even better in the performance.
+  observer.unobserve(entry.target);
+};
+
+const sectionObserver = new IntersectionObserver(
+  revealSection,
+  observerRevealOptions
+);
+
+sections.forEach((section) => {
+  sectionObserver.observe(section);
+  section.classList.add("section--hidden");
+});
