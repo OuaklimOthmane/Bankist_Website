@@ -194,3 +194,32 @@ sections.forEach((section) => {
   sectionObserver.observe(section);
   section.classList.add("section--hidden");
 });
+
+//! Lazy loading images :
+// Scrolling to one of these low images we will then replace with the one which specified in the "data-src" attribute.The main goal is to replace a low resolution image with a new one who has a good resolution to get a good performance.
+const imgTargets = document.querySelectorAll("img[data-src]"); // Selecting images who have the data-src attribute.
+
+const loadImg = function (entries, observer) {
+  const [entry] = entries;
+
+  //* Guard clause :
+  if (!entry.isIntersecting) return;
+
+  //* Replacing src with data-src :
+  entry.target.src = entry.target.dataset.src;
+
+  // This replacing of "src" attribute actually happens behind the scenes so JS finds the new image that it should load and display'it ,and once it finished loading it will emmet the "load" event
+  entry.target.addEventListener("load", function () {
+    entry.target.classList.remove("lazy-img");
+  });
+};
+
+const loadImgOptions = {
+  root: null,
+  threshold: 0,
+  // rootMargin: "90px",
+};
+
+const imgObserver = new IntersectionObserver(loadImg, loadImgOptions);
+
+imgTargets.forEach((img) => imgObserver.observe(img));
