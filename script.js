@@ -223,3 +223,43 @@ const loadImgOptions = {
 const imgObserver = new IntersectionObserver(loadImg, loadImgOptions);
 
 imgTargets.forEach((img) => imgObserver.observe(img));
+
+//! Slider :
+const slides = document.querySelectorAll(".slide");
+const slider = document.querySelector(".slider");
+
+const btnLeft = document.querySelector(".slider__btn--left");
+const btnRight = document.querySelector(".slider__btn--right");
+
+let currentSlide = 0;
+const maxSlides = slides.length;
+
+slides.forEach((slide, i) => {
+  slide.style.transform = `translateX(${100 * i}%)`; // 0*100% = 0, 1*100% = 100%, 2*100% = 200%, 3*100% = 300%
+});
+// 0% , 100% ,200%, 300%
+slider.style.transform = "scale(0.3) translateX(-1200px)";
+slider.style.overflow = "visible";
+
+btnRight.addEventListener("click", function () {
+  if (currentSlide === maxSlides - 1) {
+    currentSlide = 0; // Returning back to the first image when the currentSlide surpass the the number of slides to avoid keep scrolling right infinitly
+  } else {
+    currentSlide++;
+  }
+
+  slides.forEach((slide, i) => {
+    slide.style.transform = `translateX(${(i - currentSlide) * 100}%)`; // (0-1)*100=-100% , ... so in any click the images will be translated and the currentSlide will increased by one to keep translating.
+  });
+});
+
+btnLeft.addEventListener("click", function () {
+  if (currentSlide === 0) {
+    currentSlide = maxSlides - 1;
+  } else {
+    currentSlide--;
+  }
+  slides.forEach((slide, i) => {
+    slide.style.transform = `translateX(${(i - currentSlide) * 100}%)`;
+  });
+});
