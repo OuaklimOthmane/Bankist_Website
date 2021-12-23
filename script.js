@@ -234,10 +234,14 @@ const btnRight = document.querySelector(".slider__btn--right");
 let currentSlide = 0;
 const maxSlides = slides.length;
 
-slides.forEach((slide, i) => {
-  slide.style.transform = `translateX(${100 * i}%)`; // 0*100% = 0, 1*100% = 100%, 2*100% = 200%, 3*100% = 300%
-});
-// 0% , 100% ,200%, 300%
+const goToSlide = function (ToSlide) {
+  slides.forEach((slide, i) => {
+    slide.style.transform = `translateX(${(i - ToSlide) * 100}%)`; // fisrt of all we should make the slides one next to one : 0*100% = 0, 1*100% = 100%, 2*100% = 200%, 3*100% = 300%
+  });
+};
+
+goToSlide(0); // Make the slides one next to one
+
 slider.style.transform = "scale(0.3) translateX(-1200px)";
 slider.style.overflow = "visible";
 
@@ -248,9 +252,7 @@ btnRight.addEventListener("click", function () {
     currentSlide++;
   }
 
-  slides.forEach((slide, i) => {
-    slide.style.transform = `translateX(${(i - currentSlide) * 100}%)`; // (0-1)*100=-100% , ... so in any click the images will be translated and the currentSlide will increased by one to keep translating.
-  });
+  goToSlide(currentSlide);
 });
 
 btnLeft.addEventListener("click", function () {
@@ -259,7 +261,6 @@ btnLeft.addEventListener("click", function () {
   } else {
     currentSlide--;
   }
-  slides.forEach((slide, i) => {
-    slide.style.transform = `translateX(${(i - currentSlide) * 100}%)`;
-  });
+
+  goToSlide(currentSlide);
 });
