@@ -234,6 +234,9 @@ const btnRight = document.querySelector(".slider__btn--right");
 let currentSlide = 0;
 const maxSlides = slides.length;
 
+slider.style.transform = "scale(0.3) translateX(-1200px)";
+slider.style.overflow = "visible";
+
 const goToSlide = function (ToSlide) {
   slides.forEach((slide, i) => {
     slide.style.transform = `translateX(${(i - ToSlide) * 100}%)`; // fisrt of all we should make the slides one next to one : 0*100% = 0, 1*100% = 100%, 2*100% = 200%, 3*100% = 300%
@@ -242,10 +245,7 @@ const goToSlide = function (ToSlide) {
 
 goToSlide(0); // Make the slides one next to one
 
-slider.style.transform = "scale(0.3) translateX(-1200px)";
-slider.style.overflow = "visible";
-
-btnRight.addEventListener("click", function () {
+const nextSlide = function () {
   if (currentSlide === maxSlides - 1) {
     currentSlide = 0; // Returning back to the first image when the currentSlide surpass the the number of slides to avoid keep scrolling right infinitly
   } else {
@@ -253,14 +253,18 @@ btnRight.addEventListener("click", function () {
   }
 
   goToSlide(currentSlide);
-});
+};
 
-btnLeft.addEventListener("click", function () {
+const previousSlide = function () {
   if (currentSlide === 0) {
-    currentSlide = maxSlides - 1;
+    currentSlide = maxSlides - 1; // Going to the last slide when the currentSlide is low than 0 to avoid keep scrolling left infinitly
   } else {
     currentSlide--;
   }
 
   goToSlide(currentSlide);
-});
+};
+
+btnRight.addEventListener("click", nextSlide);
+
+btnLeft.addEventListener("click", previousSlide);
