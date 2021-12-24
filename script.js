@@ -287,3 +287,11 @@ const createDots = function () {
   });
 };
 createDots();
+
+//* Attaching the event to the dots using event delegation :
+dotContainer.addEventListener("click", function (e) {
+  if (e.target.classList.contains("dots__dot")) {
+    const slide = e.target.dataset.slide; // getting the index of the slide based on the data-slide attribute of the dot who lunches the event.
+    goToSlide(slide);
+  }
+});
