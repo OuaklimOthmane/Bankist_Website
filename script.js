@@ -265,6 +265,13 @@ const previousSlide = function () {
   goToSlide(currentSlide);
 };
 
+//* Attaching the event to the buttons :
 btnRight.addEventListener("click", nextSlide);
 
 btnLeft.addEventListener("click", previousSlide);
+
+//* Attaching the event to the keyboard keys :
+document.addEventListener("keydown", function (e) {
+  e.key === "arrowLeft" && previousSlide();
+  e.key === "arrowRight" && nextSlide();
+});
