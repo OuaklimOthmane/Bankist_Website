@@ -234,9 +234,6 @@ const btnRight = document.querySelector(".slider__btn--right");
 let currentSlide = 0;
 const maxSlides = slides.length;
 
-slider.style.transform = "scale(0.3) translateX(-1200px)";
-slider.style.overflow = "visible";
-
 const goToSlide = function (ToSlide) {
   slides.forEach((slide, i) => {
     slide.style.transform = `translateX(${(i - ToSlide) * 100}%)`; // fisrt of all we should make the slides one next to one : 0*100% = 0, 1*100% = 100%, 2*100% = 200%, 3*100% = 300%
@@ -245,6 +242,7 @@ const goToSlide = function (ToSlide) {
 
 goToSlide(0); // Make the slides one next to one
 
+//* To the next slide :
 const nextSlide = function () {
   if (currentSlide === maxSlides - 1) {
     currentSlide = 0; // Returning back to the first image when the currentSlide surpass the the number of slides to avoid keep scrolling right infinitly
@@ -255,6 +253,7 @@ const nextSlide = function () {
   goToSlide(currentSlide);
 };
 
+//* To the previous slide :
 const previousSlide = function () {
   if (currentSlide === 0) {
     currentSlide = maxSlides - 1; // Going to the last slide when the currentSlide is low than 0 to avoid keep scrolling left infinitly
@@ -275,3 +274,16 @@ document.addEventListener("keydown", function (e) {
   e.key === "ArrowLeft" && previousSlide();
   e.key === "ArrowRight" && nextSlide();
 });
+
+const dotContainer = document.querySelector(".dots");
+
+//* Creating Dots :
+const createDots = function () {
+  slides.forEach(function (_, index) {
+    dotContainer.insertAdjacentHTML(
+      "beforeend",
+      `<button class="dots__dot" data-slide="${index}"></button>`
+    );
+  });
+};
+createDots();
