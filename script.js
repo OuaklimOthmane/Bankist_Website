@@ -272,6 +272,6 @@ btnLeft.addEventListener("click", previousSlide);
 
 //* Attaching the event to the keyboard keys :
 document.addEventListener("keydown", function (e) {
-  e.key === "arrowLeft" && previousSlide();
-  e.key === "arrowRight" && nextSlide();
+  e.key === "ArrowLeft" && previousSlide();
+  e.key === "ArrowRight" && nextSlide();
 });
