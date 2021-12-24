@@ -251,6 +251,7 @@ const nextSlide = function () {
   }
 
   goToSlide(currentSlide);
+  activateDots(currentSlide);
 };
 
 //* To the previous slide :
@@ -262,6 +263,7 @@ const previousSlide = function () {
   }
 
   goToSlide(currentSlide);
+  activateDots(currentSlide);
 };
 
 //* Attaching the event to the buttons :
@@ -288,10 +290,23 @@ const createDots = function () {
 };
 createDots();
 
+//* Activating dots :
+const activateDots = function (slide) {
+  document
+    .querySelectorAll(".dots__dot")
+    .forEach((dot) => dot.classList.remove("dots__dot--active")); // Desactivating all the dots.
+
+  document
+    .querySelector(`.dots__dot[data-slide="${slide}"]`)
+    .classList.add("dots__dot--active"); // Activate the the current dot.
+};
+activateDots(0);
+
 //* Attaching the event to the dots using event delegation :
 dotContainer.addEventListener("click", function (e) {
   if (e.target.classList.contains("dots__dot")) {
     const slide = e.target.dataset.slide; // getting the index of the slide based on the data-slide attribute of the dot who lunches the event.
     goToSlide(slide);
+    activateDots(slide);
   }
 });
