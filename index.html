@@ -12,6 +12,8 @@
     />
     <link rel="stylesheet" href="style.css" />
     <title>Bankist | When Banking meets Minimalist</title>
+    <!-- scripts are fetched asynchronously and executed after the HTML is completely parsed -->
+    <script defer src="script.js"></script>
   </head>
   <body>
     <header class="header">
@@ -21,6 +23,8 @@
           alt="Bankist logo"
           class="nav__logo"
           id="logo"
+          designer="Othmane"
+          data-version-number="3.0"
         />
         <ul class="nav__links">
           <li class="nav__item">
@@ -282,10 +286,6 @@
           </div>
         </div>
 
-        <!-- <div class="slide"><img src="img/img-1.jpg" alt="Photo 1" /></div>
-        <div class="slide"><img src="img/img-2.jpg" alt="Photo 2" /></div>
-        <div class="slide"><img src="img/img-3.jpg" alt="Photo 3" /></div>
-        <div class="slide"><img src="img/img-4.jpg" alt="Photo 4" /></div> -->
         <button class="slider__btn slider__btn--left">&larr;</button>
         <button class="slider__btn slider__btn--right">&rarr;</button>
         <div class="dots"></div>
@@ -327,16 +327,6 @@
         </li>
       </ul>
       <img src="img/icon.png" alt="Logo" class="footer__logo" />
-      <p class="footer__copyright">
-        &copy; Copyright by
-        <a
-          class="footer__link twitter-link"
-          target="_blank"
-          href="https://twitter.com/jonasschmedtman"
-          >Jonas Schmedtmann</a
-        >. Use for learning or your portfolio. Don't use to teach. Don't claim
-        as your own product.
-      </p>
     </footer>
 
     <div class="modal hidden">
@@ -357,6 +347,7 @@
     </div>
     <div class="overlay hidden"></div>
 
-    <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
+    <!-- <script src="main.js"></script> -->
   </body>
 </html>
